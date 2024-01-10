@@ -5,12 +5,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Beschreiben Sie hier die Klasse Mensch.
- * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * Die Klasse Mensch ist ein Spieler, der von einem Benutzer gespielt wird.
+ * Das heißt, ein Benutzer wählt selbst die Eingaben für das Spiel.
+ *
+ * @author THM
+ * @version 0.1
  */
-public class PlayerHuman extends BlueprintPlayer {
+
+public class Mensch extends HolsDerGeierSpieler {
 
     private ArrayList<Integer> nochNichtGespielt=new ArrayList<Integer>();
 
@@ -34,11 +36,12 @@ public class PlayerHuman extends BlueprintPlayer {
         int ret=-99;
         do {
             System.out.println("Es geht um die Kaerte: "+naechsteKarte);
-            System.out.println("Sie haben noch die folgenden Karten zur Verf�gung: "+nochNichtGespielt);
+            System.out.println("Sie haben noch die folgenden Karten zur Verf�gung: "+nochNichtGespielt);
             System.out.print("Welche Karte spielen Sie aus?> ");
             ret=liesInteger();
         } while (!nochNichtGespielt.contains(ret));
         nochNichtGespielt.remove(nochNichtGespielt.indexOf(ret));
         return ret;
-    }
+    }       
+        
 }

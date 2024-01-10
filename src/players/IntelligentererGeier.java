@@ -3,12 +3,14 @@ package players;
 import java.util.ArrayList;
 
 /**
- * Beschreiben Sie hier die Klasse IntelligentererGeier.
- * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * Die Klasse IntelligenterGeier ist ein Spieler, der sich an das Spiel anpasst.
+ * Das hei√üt, er spielt nach einer advanced Strategie.
+ *
+ * @author THM
+ * @version 0.1
  */
-public class BotTHM extends BlueprintPlayer {
+
+public class IntelligentererGeier extends HolsDerGeierSpieler {
 
     private ArrayList<Integer> nochZuGewinnen=new ArrayList<Integer>();
     private ArrayList<Integer> vomGegnerNochNichtGelegt=new ArrayList<Integer>();
@@ -17,7 +19,7 @@ public class BotTHM extends BlueprintPlayer {
     /**
      * Hier definieren Sie den Konstruktor fuer Objekte Ihrer Klasse (falls Sie einen eigenen brauchen) IntelligentererGeier
     */
-    public BotTHM() {
+    public IntelligentererGeier() {
     }
             
     public void reset() {
@@ -36,15 +38,15 @@ public class BotTHM extends BlueprintPlayer {
        int letzteKarteGegner=letzterZug();
        if (letzteKarteGegner!=-99)
           vomGegnerNochNichtGelegt.remove(vomGegnerNochNichtGelegt.indexOf(letzteKarteGegner));
-       // Lˆsche dieser Karte
+       // LÔøΩsche dieser Karte
        nochZuGewinnen.remove(nochZuGewinnen.indexOf(naechsteKarte));
-       // Wenn die karte negativ ist  => spiele die letzte Karte
+       // Wenn die Karte negativ ist: ‚Üí spiele die letzte Karte
        if (naechsteKarte>0) {           
-           // Kommt die hoechste Karte und der gener hat die gleiche hˆchste => spiele mittlere Karte
+           // Kommt die hoechste Karte und der gener hat die gleiche hÔøΩchste => spiele mittlere Karte
            if ((nochZuGewinnen.indexOf(naechsteKarte)==0)&&(vomGegnerNochNichtGelegt.get(0)==nochNichtGespielt.get(0))) {
                    ret=nochNichtGespielt.get(nochZuGewinnen.size()/2);
                    //System.out.println(">>> A");
-           // Steht die zu gewinnende Karte in der vorderen Haelfte der Reihenfolge und hat der gegner => Spiele die hˆchste Karte
+           // Steht die zu gewinnende Karte in der vorderen Haelfte der Reihenfolge und hat der gegner => Spiele die hÔøΩchste Karte
         } else if (nochZuGewinnen.indexOf(naechsteKarte)>nochZuGewinnen.size()/2) {
                    ret=nochNichtGespielt.get(0);  
                    //System.out.println(">>> B");                   

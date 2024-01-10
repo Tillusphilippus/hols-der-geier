@@ -3,12 +3,14 @@ package players;
 import java.util.ArrayList;
 
 /**
- * Beschreiben Sie hier die Klasse Random.
- * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * Die Klasse Random ist ein Spieler, der eine zufällige Karte ausspielt.
+ * Das heißt, er spielt nach einer random Strategie.
+ *
+ * @author THM
+ * @version 0.1
  */
-public class BotRandom extends BlueprintPlayer {
+
+public class Random extends HolsDerGeierSpieler {
     /**
     * Hier definieren Sie die Attribute Ihrer Klasse
     * Beispiel: private <Typ> Name_des_Attributs
@@ -16,12 +18,8 @@ public class BotRandom extends BlueprintPlayer {
     /* Hier stehen die Karten, die noch nicht gespielt wurden */
     private ArrayList<Integer> nochNichtGespielt=new ArrayList<Integer>();
 
-    /**
-     * Hier definieren Sie den Konstruktor fuer Objekte Ihrer Klasse (falls Sie einen eigenen brauchen) Random
-    */        
-    public BotRandom() {
-        //  Meine Karten            
-       
+    public Random() {
+        //  Meine Karten
     }
     
     public void reset() {
@@ -30,9 +28,9 @@ public class BotRandom extends BlueprintPlayer {
             nochNichtGespielt.add(i);                     
     }
 
-    /**   
-     *  Spiele zufaellig eine Karte
-    */
+
+    // Spiele zufaellig eine Karte
+
     private int spieleZufallskarte() {
         int nochVorhanden=nochNichtGespielt.size();            
         int index=(int) (Math.random()*nochVorhanden);
