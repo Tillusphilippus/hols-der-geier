@@ -22,7 +22,7 @@ public class HolsDerGeier {
     private int punkte;
     private int[] punktstaende=new int[2];
     
-    // Das ist die Referenz Ihr Objekt
+    // Das ist die Referenz für Ihr Objekt
     private HolsDerGeierSpieler[] spieler;    
 
     public HolsDerGeier()  {
@@ -66,7 +66,6 @@ public class HolsDerGeier {
          punktstaende[i]=0;
        for (int i=0;i<spieler.length;i++)
          spieler[i].reset();
-         
     }
 
     // Fügt dem Spiel zwei Spieler hinzu.
