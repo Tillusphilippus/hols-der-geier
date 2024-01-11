@@ -9,5 +9,5 @@ package strategies;
  * @version 0.1
  */
 
-public class MyStrategy {
+public class MyStrategy extends Strategie {
 }

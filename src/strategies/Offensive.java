@@ -11,5 +11,5 @@ package strategies;
  * @version 0.1
  */
 
-public class Offensive {
+public class Offensive extends Strategie {
 }

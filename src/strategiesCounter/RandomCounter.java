@@ -8,5 +8,5 @@ package strategiesCounter;
  * @version 0.1
  */
 
-public class RandomCounter {
+public class RandomCounter extends StrategieCounter {
 }

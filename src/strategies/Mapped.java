@@ -9,6 +9,6 @@ package strategies;
  * @version 0.1
  */
 
-public class Mapped {
+public class Mapped extends Strategie {
 
 }
