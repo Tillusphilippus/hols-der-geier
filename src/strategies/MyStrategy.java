@@ -10,4 +10,8 @@ package strategies;
  */
 
 public class MyStrategy extends Strategie {
+    @Override
+    public int gibKarte() {
+        return 0;
+    }
 }

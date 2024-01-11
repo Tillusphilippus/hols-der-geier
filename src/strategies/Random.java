@@ -9,4 +9,8 @@ package strategies;
  */
 
 public class Random extends Strategie {
+    @Override
+    public int gibKarte() {
+        return 0;
+    }
 }

@@ -162,6 +162,13 @@ public class HolsDerGeier {
         while (!nochZuVergebendeGeierKarten.isEmpty()) {
             naechsterZug();
         }
+
+        if(punktstaende[0] > punktstaende[1]){
+            GameManager.punkte1++;
+        }
+        else if(punktstaende[0] < punktstaende[1]){
+            GameManager.punkte2++;
+        }
     }
     
 }

@@ -11,4 +11,8 @@ package strategies;
 
 public class Mapped extends Strategie {
 
+    @Override
+    public int gibKarte() {
+        return 0;
+    }
 }

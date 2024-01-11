@@ -1,4 +1,6 @@
 package strategies;
 
-public class Strategie {
+public abstract class Strategie {
+    public abstract int gibKarte();
+
 }

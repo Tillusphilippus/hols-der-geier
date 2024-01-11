@@ -11,4 +11,8 @@ package strategies;
  */
 
 public class Defensive extends Strategie {
+    @Override
+    public int gibKarte() {
+        return 0;
+    }
 }

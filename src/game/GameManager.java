@@ -2,6 +2,9 @@ package game;
 
 public class GameManager {
 
+
+    public static int punkte1 = 0;
+    public static int punkte2 = 0;
     public static void main(String[] args) {
         GameBuilder gameBuilder = new GameBuilder();
         HolsDerGeier aktuellesSpiel = gameBuilder.aktuellesSpiel;

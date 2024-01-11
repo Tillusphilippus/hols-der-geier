@@ -1,4 +1,4 @@
 package strategiesCounter;
 
-public class StrategieCounter {
+public abstract class StrategieCounter {
 }
