@@ -15,7 +15,6 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
-
         for(int i = 1; i <= gameBuilder.anzahlDerZuSpielendenRunden; i++){
             try {
                 aktuellesSpiel.ganzesSpiel();

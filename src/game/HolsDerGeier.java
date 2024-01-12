@@ -1,7 +1,8 @@
 package game;
 
+import players.HolsDerGeierSpieler;
+
 import java.util.ArrayList;
-import players.*;
 
 /**
  * Die Klasse HolsDerGeier beinhaltet alle relevanten Informationen zum Spiel und verwaltet dieses.
@@ -119,7 +120,7 @@ public class HolsDerGeier {
 
                
                if ((zuege[i]<1)||(zuege[i]>15))
-                   throw new Exception("GESCHUMMELT: Diese Karte gibt es gar nicht");
+                   throw new Exception("GESCHUMMELT: Diese Karte gibt es gar nicht: " + i);
            }
 
            // Alle Züge fertig, dann eintragen (erst hier wg. Methode nächsterZug())
@@ -158,7 +159,7 @@ public class HolsDerGeier {
     // Mit dieser Methode kann ein komplettes Spiel gespielt werden.
     public void ganzesSpiel() throws Exception {
        if (nochZuVergebendeGeierKarten.isEmpty())
-            naechstesSpiel();
+           naechstesSpiel();
         while (!nochZuVergebendeGeierKarten.isEmpty()) {
             naechsterZug();
         }

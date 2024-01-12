@@ -11,7 +11,12 @@ package strategies;
 
 public class MyStrategy extends Strategie {
     @Override
-    public int gibKarte() {
+    public int gibKarte(int letzteKarte) {
         return 0;
+    }
+
+    @Override
+    public void reset() {
+
     }
 }

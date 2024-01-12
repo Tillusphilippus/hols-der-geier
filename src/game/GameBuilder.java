@@ -1,6 +1,7 @@
 package game;
 
 import players.*;
+
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,8 @@ public class GameBuilder {
                 + "1 = Mensch als Spieler \n"
                 + "2 = Geier \n"
                 + "3 = Intelligenterer Geier \n"
-                + "4 = Bot Zufaellig \n";
+                + "4 = Random \n"
+                + "5 = BATWF \n";
 
         System.out.println(aufforderung);
 
@@ -52,6 +54,9 @@ public class GameBuilder {
                     break;
                 case "4":
                     spieler = new Random();
+                    break;
+                case "5":
+                    spieler = new BATWF();
                     break;
                 default:
                     System.out.println("Die Eingabe ist nicht gültig! Bitte wählen Sie erneut.");

@@ -1,4 +1,6 @@
 package strategiesCounter;
 
-public abstract class StrategieCounter {
+import strategies.Strategie;
+
+public abstract class StrategieCounter extends Strategie {
 }

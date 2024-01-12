@@ -9,4 +9,13 @@ package strategiesCounter;
  */
 
 public class DefensiveCounter extends StrategieCounter {
+    @Override
+    public int gibKarte(int letzteKarte) {
+        return 0;
+    }
+
+    @Override
+    public void reset() {
+
+    }
 }
