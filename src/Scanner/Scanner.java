@@ -1,12 +1,7 @@
 package Scanner;
 
-import players.BATWF;
-import strategies.MyStrategy;
-import strategies.Strategie;
-import strategiesCounter.DefensiveCounter;
-import strategiesCounter.MappedCounter;
-import strategiesCounter.OffensiveCounter;
-import strategiesCounter.RandomCounter;
+import game.HolsDerGeier;
+import players.HolsDerGeierSpieler;
 
 import java.util.ArrayList;
 
@@ -19,59 +14,60 @@ import java.util.ArrayList;
 
 public class Scanner {
 
-    BATWF batwf;
-    private ArrayList<Integer> handkartenGegner = new ArrayList<>();
-    private ArrayList<Integer> zuletztGespieltGegner = new ArrayList<>();
-    private ArrayList<Integer> handkarten = new ArrayList<>();
-    private ArrayList<Integer> zuletztGespielt = new ArrayList<>();
+    HolsDerGeier spiel;
+    HolsDerGeierSpieler spieler;
 
-    public void handkartenZuruecksetzen() {
-        for (int i = 1; i <= 15; i++) {
-            this.handkartenGegner.add(i);
-            this.handkarten.add(i);
-        }
+    public ArrayList<Integer> handkartenGegner = new ArrayList<>();
+    public ArrayList<Integer> handkartenGegnerAusgespielt = new ArrayList<>();
+    public ArrayList<Integer> handkarten = new ArrayList<>();
+    public ArrayList<Integer> handkartenAusgespielt = new ArrayList<>();
+    public ArrayList<Integer> geierKartenRunde = new ArrayList<>();
+    public ArrayList<Integer> geierKartenRundeAusgespielt = new ArrayList<>();
+
+    public Scanner(HolsDerGeierSpieler spieler, HolsDerGeier spiel) {
+        this.spieler = spieler;
+        this.spiel = spiel;
+        handKartenZuruecksetzen();
     }
 
-    public int getLetzterZug() {
-        return batwf.letzterZug();
+    public void newTurn(int letzteKarte, int letzteKarteGegner, int geierKarte) {
+        handkarten.remove((Integer) letzteKarte);
+        handkartenGegner.remove((Integer) letzteKarteGegner);
+        geierKartenRunde.remove((Integer) geierKarte);
+        handkartenAusgespielt.add(letzteKarte);
+        handkartenGegnerAusgespielt.add(letzteKarteGegner);
+        geierKartenRundeAusgespielt.add(geierKarte);
     }
 
-    public Strategie starteNeuenScan(){
-        if(scanAufMapped()) return new MappedCounter();
-         else if (scanAufOffensive()) return new OffensiveCounter();
-         else if (scanAufDefensive()) return new DefensiveCounter();
-         else if (scanAufRandom()) return new RandomCounter();
-         else return new MyStrategy();
+    private void berechneGegnerStrategie() {
+
     }
 
     public void reset() {
-        handkartenZuruecksetzen();
+        handKartenZuruecksetzen();
+        geierKartenZuruecksetzen();
+        berechneGegnerStrategie();
     }
 
-    private boolean scanAufDefensive(){
-        return false;
+    private void handKartenZuruecksetzen() {
+        handkarten.clear();
+        handkartenAusgespielt.clear();
+        handkartenGegner.clear();
+        handkartenGegnerAusgespielt.clear();
+        for (int i = 1; i <= 15; i++) {
+            handkartenGegner.add(i);
+            handkarten.add(i);
+        }
     }
 
-    private boolean scanAufOffensive(){
-        return false;
-    }
-
-    private boolean scanAufMapped(){
-        return false;
-    }
-
-    private boolean scanAufRandom(){
-        return false;
-    }
-
-
-
-    public BATWF getBatwf() {
-        return batwf;
-    }
-
-    public void setBatwf(BATWF batwf) {
-        this.batwf = batwf;
+    private void geierKartenZuruecksetzen () {
+        geierKartenRunde.clear();
+        geierKartenRundeAusgespielt.clear();
+        for (int i = -5; i <= 10; i++) {
+            if(i != 0) {
+                geierKartenRunde.add(i);
+            }
+        }
     }
 
 }

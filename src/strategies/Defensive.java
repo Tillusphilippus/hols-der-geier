@@ -98,6 +98,7 @@ public class Defensive extends Strategie {
 
     @Override
     public void reset() {
+        kartenReihenfolge.clear();
         mischeKarten();
     }
 }

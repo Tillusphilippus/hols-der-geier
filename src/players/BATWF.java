@@ -12,16 +12,10 @@ import strategies.*;
 
 public class BATWF extends HolsDerGeierSpieler{
 
-    private Strategie currentStrategie = new Defensive(true);
-    private Scanner scanner = new Scanner();
-
-    public BATWF(){
-        scanner.setBatwf(this);
-    }
-
-    public void gegnerAnalysieren(){
-        currentStrategie = scanner.starteNeuenScan();
-    }
+    private final Scanner scanner = new Scanner(this, this.getHdg());
+    private Strategie currentStrategie = new MyStrategy(this, scanner);
+    private final int nummerGegner = (this.getNummer() == 1) ? 0 : 1;
+    private int letzteGeierKarte;
 
     @Override
     public void reset() {
@@ -31,11 +25,16 @@ public class BATWF extends HolsDerGeierSpieler{
 
     @Override
     public int gibKarte(int naechsteKarte) {
+        updateScanner();
+        letzteGeierKarte = naechsteKarte;
         return currentStrategie.gibKarte(naechsteKarte);
     }
 
-    public Strategie getCurrentStrategie() {
-        return currentStrategie;
+    private void updateScanner() {
+        int letzterZug = this.getHdg().letzterZug(this.getNummer());
+        int letzterZugGegner = this.getHdg().letzterZug(nummerGegner);
+
+        scanner.newTurn(letzterZug, letzterZugGegner, letzteGeierKarte);
     }
 
     public void setCurrentStrategie(Strategie currentStrategie) {
