@@ -1,9 +1,11 @@
 package Scanner;
 
 import game.HolsDerGeier;
-import players.HolsDerGeierSpieler;
+import players.BATWF;
+import strategiePickers.StrategieCounterPicker;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Die Klasse Scanner ist dafür zuständig nach jeder Runde den Gegner zu analysieren und eine passende Gegenstrategie zu wählen.
@@ -14,8 +16,10 @@ import java.util.ArrayList;
 
 public class Scanner {
 
-    HolsDerGeier spiel;
-    HolsDerGeierSpieler spieler;
+    public HolsDerGeier spiel;
+    BATWF spieler;
+
+    StrategieCounterPicker strategieCounterPicker = new StrategieCounterPicker();
 
     public ArrayList<Integer> handkartenGegner = new ArrayList<>();
     public ArrayList<Integer> handkartenGegnerAusgespielt = new ArrayList<>();
@@ -24,29 +28,76 @@ public class Scanner {
     public ArrayList<Integer> geierKartenRunde = new ArrayList<>();
     public ArrayList<Integer> geierKartenRundeAusgespielt = new ArrayList<>();
 
-    public Scanner(HolsDerGeierSpieler spieler, HolsDerGeier spiel) {
+    public Scanner(BATWF spieler, HolsDerGeier spiel) {
         this.spieler = spieler;
         this.spiel = spiel;
         handKartenZuruecksetzen();
     }
 
-    public void newTurn(int letzteKarte, int letzteKarteGegner, int geierKarte) {
-        handkarten.remove((Integer) letzteKarte);
-        handkartenGegner.remove((Integer) letzteKarteGegner);
-        geierKartenRunde.remove((Integer) geierKarte);
-        handkartenAusgespielt.add(letzteKarte);
-        handkartenGegnerAusgespielt.add(letzteKarteGegner);
-        geierKartenRundeAusgespielt.add(geierKarte);
+    public void starteNeuenZug (int letzteGeierKarte) {
+        if(spiel.letzterZug(spieler.getNummerGegner()) != -99) {
+            int letzteGegnerkarte = spiel.letzterZug(spieler.getNummer());
+            handkartenGegner.remove((Integer) letzteGegnerkarte);
+            handkartenGegnerAusgespielt.add(letzteGegnerkarte);
+        }
+        if(spiel.letzterZug(spieler.getNummer()) != -99) {
+            int letzteKarte = spiel.letzterZug(spieler.getNummerGegner());
+            handkarten.remove((Integer) letzteKarte);
+            handkartenAusgespielt.add(letzteKarte);
+        }
+        geierKartenRunde.remove((Integer) letzteGeierKarte);
+        geierKartenRundeAusgespielt.add(letzteGeierKarte);
     }
 
-    private void berechneGegnerStrategie() {
+    private void kontereGegnerStrategie() {
+        System.out.println("Gegner ueberprueft!");
+        if(strategieCounterPicker.sucheMappedStrategie(geierKartenRundeAusgespielt, handkartenGegnerAusgespielt)) {
+            spieler.setCurrentStrategie(strategieCounterPicker.kontereGegenstrategieMapped());
+        }
+    }
 
+    public int berechneHoechsteGegnerKarte() {
+        return Collections.max(handkartenGegner);
+    }
+    public int berechneNiedrigsteGegnerKarte() {
+        return Collections.min(handkartenGegner);
+    }
+    public int berechneLetzteGegnerKarte() {
+        if(!handkartenGegnerAusgespielt.isEmpty()) {
+            return handkartenGegnerAusgespielt.getLast();
+        }
+        return 99;
+    }
+
+    public int berechneLetzteGeierKarte() {
+        if(!geierKartenRundeAusgespielt.isEmpty()) {
+            return geierKartenRundeAusgespielt.getLast();
+        }
+        return 97;
+    }
+
+    public int berechneLetzteKarte() {
+        if(!handkartenAusgespielt.isEmpty()) {
+            return handkartenAusgespielt.getLast();
+        }
+        return 98;
+    }
+
+
+    public int berechneHoechsteKarte() {
+        return Collections.max(handkarten);
+    }
+
+    public int berechneNiedrigsteKarte() {
+        return Collections.min(handkarten);
     }
 
     public void reset() {
+        if(!handkartenGegnerAusgespielt.isEmpty()) {
+            kontereGegnerStrategie();
+        }
         handKartenZuruecksetzen();
         geierKartenZuruecksetzen();
-        berechneGegnerStrategie();
     }
 
     private void handKartenZuruecksetzen() {

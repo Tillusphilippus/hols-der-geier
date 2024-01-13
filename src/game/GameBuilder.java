@@ -1,6 +1,7 @@
 package game;
 
 import players.*;
+import strategies.LinearMapped;
 
 import java.util.Scanner;
 
@@ -32,7 +33,8 @@ public class GameBuilder {
                 + "2 = Geier \n"
                 + "3 = Intelligenterer Geier \n"
                 + "4 = Random \n"
-                + "5 = BATWF \n";
+                + "5 = BATWF mit Strategie\n"
+                + "6 = BATWF Standart\n";
 
         System.out.println(aufforderung);
 
@@ -56,6 +58,9 @@ public class GameBuilder {
                     spieler = new Random();
                     break;
                 case "5":
+                    spieler = new BATWF(new LinearMapped(5));
+                    break;
+                case "6":
                     spieler = new BATWF();
                     break;
                 default:

@@ -2,7 +2,6 @@ package game;
 
 public class GameManager {
 
-
     public static int punkte1 = 0;
     public static int punkte2 = 0;
     public static void main(String[] args) {
@@ -17,7 +16,8 @@ public class GameManager {
 
         for(int i = 1; i <= gameBuilder.anzahlDerZuSpielendenRunden; i++){
             try {
-                aktuellesSpiel.ganzesSpiel();
+                System.out.println("Gewinner: " + aktuellesSpiel.ganzesSpiel());
+                System.out.println("Neuer Spielstand: " + punkte1 + ":" + punkte2);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

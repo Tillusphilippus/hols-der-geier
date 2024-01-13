@@ -51,7 +51,7 @@ public class HolsDerGeier {
     
     // Hier kann nach dem letzten Zug gefragt werden. Aber diese Methode ist so eigentlich nicht wirklich gelungen.
     public int letzterZug(int nummer) {
-        if (gespielteKarten.get(nummer).size()>0)
+        if (!gespielteKarten.get(nummer).isEmpty())
             return gespielteKarten.get(nummer).get(gespielteKarten.get(nummer).size()-1);
          else
             return -99;
@@ -83,9 +83,6 @@ public class HolsDerGeier {
        if (spieler==null) 
             System.out.println("Noch keine Spieler angemeldet!");
        else {
-           System.out.println("===============");
-           System.out.println("= NEUES SPIEL, ES STEHT 0:0 =");       
-           System.out.println("===============");
            reset();
         }
     }
@@ -128,9 +125,7 @@ public class HolsDerGeier {
                gespielteKarten.get(i).add(zuege[i]);  
                
            // So sieht der aktuelle Zug aus
-           System.out.println("Ausgespielte Karte: "+naechsteKarte);
-           System.out.println("Zug erster Spieler: "+zuege[0]);
-           System.out.println("Zug zweiter Spieler: "+zuege[1]);
+           //System.out.println("Geierkarte: " + naechsteKarte + ". Karte Spieler 1: " + zuege[0] + ". Karte Spieler 2: " + zuege[1]);
 
 
            // Wer kriegt die Punkte?           
@@ -138,37 +133,50 @@ public class HolsDerGeier {
            // Lösung: Es muss zwischen Maus- (nachesteKarte>0) und Geierkarten (nachesteKarte<0) unterschieden werden.
            if (zuege[0]!=zuege[1]) {
                if (punkte>0) 
-                    if (zuege[0]>zuege[1])
-                       punktstaende[0]=punktstaende[0]+punkte;
-                    else 
-                       punktstaende[1]=punktstaende[1]+punkte;
+                    if (zuege[0]>zuege[1]) {
+                        punktstaende[0] = punktstaende[0] + punkte;
+                        //System.out.println("Spieler 1 gewinnt den Zug und gewinnt: +" + punkte + " Punkte");
+                    }
+                    else {
+                        punktstaende[1] = punktstaende[1] + punkte;
+                        //System.out.println("Spieler 2 gewinnt den Zug und gewinnt: +" + punkte + " Punkte");
+                    }
                else
-                    if (zuege[0]<zuege[1])
-                       punktstaende[0]=punktstaende[0]+punkte;
-                    else 
-                       punktstaende[1]=punktstaende[1]+punkte;
+                    if (zuege[0]<zuege[1]) {
+                        punktstaende[0] = punktstaende[0] + punkte;
+                        //System.out.println("Spieler 1 verliert den Zug und verliert: " + punkte + " Punkte");
+                    }
+                    else {
+                        punktstaende[1] = punktstaende[1] + punkte;
+                        //System.out.println("Spieler 1 verliert den Zug und verliert: " + punkte + " Punkte");
+                    }
               punkte=0; 
-           } else
-              System.out.println("Unentschieden - Punkte wandern in die nächste Runde");
-           System.out.println("Spielstand: "+punktstaende[0]+" : "+punktstaende[1]);
-       } else
-           System.out.println("Spiel ist zu Ende. Sie müssen zuerst die Methode neues Siel aufrufen");
+           } //else
+              //System.out.println("Unentschieden");
+           //System.out.println("Neuer Spielstand: "+punktstaende[0]+" : "+punktstaende[1]);
+       } //else
+           //System.out.println("Spiel ist zu Ende. Sie müssen zuerst die Methode neues Spiel aufrufen");
        
-    }  
+    }
     
     // Mit dieser Methode kann ein komplettes Spiel gespielt werden.
-    public void ganzesSpiel() throws Exception {
+    public String ganzesSpiel() throws Exception {
        if (nochZuVergebendeGeierKarten.isEmpty())
            naechstesSpiel();
         while (!nochZuVergebendeGeierKarten.isEmpty()) {
             naechsterZug();
         }
 
-        if(punktstaende[0] > punktstaende[1]){
+        if (punktstaende[0] > punktstaende[1]) {
             GameManager.punkte1++;
+            return spieler[0].getClass().getSimpleName();
         }
-        else if(punktstaende[0] < punktstaende[1]){
+        else if (punktstaende[0] < punktstaende[1]){
             GameManager.punkte2++;
+            return spieler[1].getClass().getSimpleName();
+        }
+        else {
+            return null;
         }
     }
     

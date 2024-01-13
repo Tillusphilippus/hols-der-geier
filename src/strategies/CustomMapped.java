@@ -1,5 +1,7 @@
 package strategies;
 
+import java.util.ArrayList;
+
 /**
  * --completed--
  * Die CustomMapped Strategie beschreibt Spieler, die auf eine Geier-/Mauskarte immer denselben Kartenwert spielen.
@@ -20,6 +22,14 @@ public class CustomMapped extends Strategie {
      * Die Zahl ist der jeweilige Kartenwert.
      * Auf die Geierkarte -1 wird also immer der in m1 festgelegte Wert gespielt.
      */
+
+    public CustomMapped(ArrayList<Integer> mapping) {
+        kartenWert = new int[mapping.size()];
+
+        for (int i = 0; i < mapping.size(); i++) {
+            kartenWert[i] = mapping.get(i);
+        }
+    }
 
     public CustomMapped(int m1, int m2, int m3, int m4, int m5, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10){
 
