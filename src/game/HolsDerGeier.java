@@ -74,8 +74,8 @@ public class HolsDerGeier {
        spieler = new HolsDerGeierSpieler[2]; 
        spieler[0]=spieler1;
        spieler[1]=spieler2;
-       spieler1.register(this,1);
-       spieler2.register(this,0);
+       spieler1.register(this,0);
+       spieler2.register(this,1);
     }
     
     // Startet ein neues Spiel

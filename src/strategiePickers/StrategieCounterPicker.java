@@ -8,6 +8,29 @@ import java.util.ArrayList;
 public class StrategieCounterPicker {
 
     private ArrayList<Integer> mappingLastRound = new ArrayList<>();
+    private ArrayList<Integer> alignedLastRound = new ArrayList<>();
+
+    public boolean sucheAlignedStrategie(ArrayList<Integer> gegnerKartenLetztesSpiel) {
+
+        for (int i = 1; i <= 15; i++) {
+            if (!gegnerKartenLetztesSpiel.contains(i)) {
+                gegnerKartenLetztesSpiel.add(i);
+                break; // Die Schleife beenden, nachdem die fehlende Zahl gefunden wurde
+            }
+        }
+        System.out.println("Aligned Last Round: " + alignedLastRound.toString());
+        System.out.println("Aligned this Round: " + gegnerKartenLetztesSpiel.toString());
+
+        if(!alignedLastRound.isEmpty() && alignedLastRound.equals(gegnerKartenLetztesSpiel) ) {
+            alignedLastRound.clear();
+            alignedLastRound.addAll(gegnerKartenLetztesSpiel);
+            return true;
+        } else {
+            alignedLastRound.clear();
+            alignedLastRound.addAll(gegnerKartenLetztesSpiel);
+            return false;
+        }
+    }
 
     public boolean sucheMappedStrategie(ArrayList<Integer> geierKartenLetztesSpiel, ArrayList<Integer> gegnerKartenLetztesSpiel) {
 
@@ -36,28 +59,39 @@ public class StrategieCounterPicker {
         mapping.add(gegnerKartenLetztesSpiel.get(geierKartenLetztesSpiel.indexOf(-3)));
         mapping.add(gegnerKartenLetztesSpiel.get(geierKartenLetztesSpiel.indexOf(-2)));
 
-        System.out.println(mapping);
-        System.out.println(mappingLastRound);
+        System.out.println("Mapping Last Round: " + mappingLastRound.toString());
+        System.out.println("Mapping this Round: " + mapping.toString());
 
-        if(!mappingLastRound.isEmpty() && mappingLastRound.equals(mapping)) {
-            mappingLastRound = mapping;
-            System.out.println("Mapping erkannt!");
+        if(!mappingLastRound.isEmpty() && mappingLastRound.equals(mapping) ) {
+            mappingLastRound.clear();
+            mappingLastRound.addAll(mapping);
             return true;
         } else {
-            mappingLastRound = mapping;
+            mappingLastRound.clear();
+            mappingLastRound.addAll(mapping);
             return false;
         }
     }
 
-    public Strategie kontereGegenstrategieMapped() {
-        System.out.println("Gegenstrategie weitergegeben!");
-        return waehleGegenstrategieMapped(mappingLastRound);
+    public Strategie kontereGegenstrategieAligned() {
+        ArrayList<Integer> alignedTemp = new ArrayList<>(alignedLastRound);
+        return waehleGegenstrategieAligned(alignedTemp);
     }
-    private Strategie waehleGegenstrategieMapped(ArrayList<Integer> mapping) {
-        mapping.set(mapping.indexOf(15), 0);
+    public Strategie kontereGegenstrategieMapped() {
+        ArrayList<Integer> mappedTemp = new ArrayList<>(mappingLastRound);
+        return waehleGegenstrategieMapped(mappedTemp);
+    }
 
-        mapping.replaceAll(integer -> integer + 1);
-        System.out.println("Gegenstrategie erstellt!");
-        return new CustomMapped(mapping);
+    private Strategie waehleGegenstrategieAligned(ArrayList<Integer> alignedTemp) {
+        alignedTemp.set(alignedTemp.indexOf(15), 0);
+        alignedTemp.replaceAll(integer -> integer + 1);
+        return new CustomMapped(alignedTemp);
+    }
+
+
+    private Strategie waehleGegenstrategieMapped(ArrayList<Integer> mappingTemp) {
+        mappingTemp.set(mappingTemp.indexOf(15), 0);
+        mappingTemp.replaceAll(integer -> integer + 1);
+        return new CustomMapped(mappingTemp);
     }
 }

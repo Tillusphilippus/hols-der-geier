@@ -33,8 +33,8 @@ public class GameBuilder {
                 + "2 = Geier \n"
                 + "3 = Intelligenterer Geier \n"
                 + "4 = Random \n"
-                + "5 = BATWF mit Strategie\n"
-                + "6 = BATWF Standart\n";
+                + "5 = AdaptiverBot mit Strategie\n"
+                + "6 = AdaptiverBot Standart\n";
 
         System.out.println(aufforderung);
 
@@ -58,10 +58,10 @@ public class GameBuilder {
                     spieler = new Random();
                     break;
                 case "5":
-                    spieler = new BATWF(new LinearMapped(5));
+                    spieler = new AdaptiverBot(new LinearMapped(5));
                     break;
                 case "6":
-                    spieler = new BATWF();
+                    spieler = new AdaptiverBot();
                     break;
                 default:
                     System.out.println("Die Eingabe ist nicht gültig! Bitte wählen Sie erneut.");

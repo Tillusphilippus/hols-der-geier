@@ -4,7 +4,7 @@ import Scanner.Scanner;
 import players.HolsDerGeierSpieler;
 
 /**
- * Die MyStrategy ist eine selbst entwickelte Strategie, die sich immer bestmöglich an das Spiel anpassen soll.
+ * Die AdaptiveStrategy ist eine selbst entwickelte Strategie, die sich immer bestmöglich an das Spiel anpassen soll.
  * Sie orientiert sich daran, wie ich ein Spiel spielen würde.
  * Mithilfe des Scanners kann sie jedoch den Spielverlauf analysieren und die Spielweise anpassen.
  *
@@ -12,7 +12,7 @@ import players.HolsDerGeierSpieler;
  * @version 0.1
  */
 
-public class MyStrategy extends Strategie {
+public class AdaptiveStrategy extends Strategie {
 
     private final HolsDerGeierSpieler spieler;
     private final Scanner scanner;
@@ -21,7 +21,7 @@ public class MyStrategy extends Strategie {
     private int letzteGegnerKarte;
     private int letzteGeierKarte;
 
-    public MyStrategy(HolsDerGeierSpieler spieler, Scanner scanner){
+    public AdaptiveStrategy(HolsDerGeierSpieler spieler, Scanner scanner){
         this.spieler = spieler;
         this.scanner = scanner;
         scanner.reset();
@@ -30,14 +30,12 @@ public class MyStrategy extends Strategie {
     @Override
     public int gibKarte(int naechsteKarte) {
 
-        scanner.starteNeuenZug(naechsteKarte);
-
         int auszuspielendeKarte;
         int letzteKarte = scanner.berechneLetzteKarte();
         int letzteKarteGegner = scanner.berechneLetzteGegnerKarte();
         int letzteKarteGeier = scanner.berechneLetzteGeierKarte();
 
-        if( letzteKarte == letzteKarteGegner && letzteKarteGeier != 97 && letzteKarteGeier >=5) {
+        if( letzteKarte == letzteKarteGegner && letzteKarteGeier != 97) {
             auszuspielendeKarte = scanner.berechneHoechsteKarte();
             return auszuspielendeKarte;
         }
@@ -68,14 +66,11 @@ public class MyStrategy extends Strategie {
         if(!scanner.handkarten.contains(karte)) {
             if(karte > scanner.berechneHoechsteKarte()) {
                 karte = scanner.berechneHoechsteKarte();
-            } else if(karte < scanner.berechneNiedrigsteKarte()) {
-                karte = scanner.berechneNiedrigsteKarte();
             } else {
-                while (!scanner.handkarten.contains(karte)) {
-                    karte++;
-                }
+                karte = scanner.berechneNiedrigsteKarte();
             }
         }
+
         return karte;
     }
 
